@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.0',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="这是面向小白的SSR搭建教程的第一部分，更多内容请关注我接下来的文章。  前言其实本来是没打算写这篇文章的，毕竟这是我Blog第一篇正式的文章，总想写点不一样的东西。但我偶然发现，身边的人搭建SSR的需求不少，他们都没有很专业的计算机知识，只是想出去看看。网上面向小白的成熟教程已经很多了，有很多很优秀的文章和博客。我自己也是小白，也是看着类似的教程一点点搭建了一个可用的SSR。其中，对我帮助最大">
+<meta name="keywords" content="shadowsocksR,VPS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向小白的SSR搭建教程(一） 前言&amp;VPS选择与购买">
+<meta property="og:url" content="http://yoursite.com/2019/04/11/SSRpart1/index.html">
+<meta property="og:site_name" content="DN&#39;s Blog">
+<meta property="og:description" content="这是面向小白的SSR搭建教程的第一部分，更多内容请关注我接下来的文章。  前言其实本来是没打算写这篇文章的，毕竟这是我Blog第一篇正式的文章，总想写点不一样的东西。但我偶然发现，身边的人搭建SSR的需求不少，他们都没有很专业的计算机知识，只是想出去看看。网上面向小白的成熟教程已经很多了，有很多很优秀的文章和博客。我自己也是小白，也是看着类似的教程一点点搭建了一个可用的SSR。其中，对我帮助最大">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%201.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%202.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%203.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%204.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%205.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%206.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%207.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%208.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%209.png">
+<meta property="og:updated_time" content="2019-04-11T12:34:26.877Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面向小白的SSR搭建教程(一） 前言&amp;VPS选择与购买">
+<meta name="twitter:description" content="这是面向小白的SSR搭建教程的第一部分，更多内容请关注我接下来的文章。  前言其实本来是没打算写这篇文章的，毕竟这是我Blog第一篇正式的文章，总想写点不一样的东西。但我偶然发现，身边的人搭建SSR的需求不少，他们都没有很专业的计算机知识，只是想出去看看。网上面向小白的成熟教程已经很多了，有很多很优秀的文章和博客。我自己也是小白，也是看着类似的教程一点点搭建了一个可用的SSR。其中，对我帮助最大">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%201.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/04/11/SSRpart1/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>面向小白的SSR搭建教程(一） 前言&VPS选择与购买 | DN's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DN's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/DN-C" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/11/SSRpart1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="dustynight">
+      <meta itemprop="description" content="About code, game, life, and everythings.">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DN's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面向小白的SSR搭建教程(一） 前言&VPS选择与购买
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-11 20:27:04 / Modified: 20:34:26" itemprop="dateCreated datePublished" datetime="2019-04-11T20:27:04+08:00">2019-04-11</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/shadowsocksR/" itemprop="url" rel="index"><span itemprop="name">shadowsocksR</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/04/11/SSRpart1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/04/11/SSRpart1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>这是面向小白的SSR搭建教程的第一部分，更多内容请关注我接下来的文章。</p>
+</blockquote>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>其实本来是没打算写这篇文章的，毕竟这是我Blog第一篇正式的文章，总想写点不一样的东西。但我偶然发现，身边的人搭建SSR的需求不少，他们都没有很专业的计算机知识，只是想出去看看。网上面向小白的成熟教程已经很多了，有很多很优秀的文章和博客。我自己也是小白，也是看着类似的教程一点点搭建了一个可用的SSR。其中，对我帮助最大的是<a href="https://ssr.tools/" target="_blank" rel="noopener">SSR中文网</a>。上面有从VPS供应商的选购到SSR的具体搭建步骤的全部教程，个人认为非常适合小白，按着上面一步一步来，不会出什么差错。<br>但不幸的是，这个网站已经被GFW ban了。这就陷入了一个悖论，如果你没有SSR，你就没有办法进入这个网站学习搭建SSR，但如果你不学习怎么搭建SSR，你要怎么才能有自己的SSR呢？<br><a id="more"></a><br>因此，我决定厚脸皮一次，当一回搬运工，把这个网站的内容精简后，加上我自己的一点点小经验，混合加工一下，写一篇面向小白的SSR搭建教程。所以，<strong>如果你有别的手段可以科学上网，请直接点上面的链接进入学习</strong>。<br>但我这篇文章也不是完全搬运的。如果你有<strong>在Linux上使用SSR的需求</strong>，可以翻到相应部分，这一部分是我自己结合他人经验的原创部分，算是一块遮羞布吧，不至于让我博客第一篇文章这么难看这么水QAQ<br>Anyway, let’s go start it! </p>
+<blockquote>
+<p>注：所有的“注”都是我自己写的一些补充提示。</p>
+</blockquote>
+<h1 id="1-VPS选择与购买"><a href="#1-VPS选择与购买" class="headerlink" title="1.  VPS选择与购买"></a>1.  VPS选择与购买</h1><h2 id="1-1-什么是VPS"><a href="#1-1-什么是VPS" class="headerlink" title="1.1 什么是VPS"></a>1.1 什么是VPS</h2><p>VPS的全称是 Virtual Private Server，中文解释就是虚拟专用服务器，是相对于独立的服务器来说的。<br> 一台独立服务器，可以划分为n台VPS，每台VPS都可分配独立公网IP地址、独立操作系统，可以像独立 服务器一样，重装操作系统，安装程序，单独重启服务器。<br> 因为VPS的价格更低，适合个人用户使用，所以我们搭建SSR一般都是在VPS上进行。<br>小提示：VPS只是一个统称，在各商家的具体叫法可能各不相同。一般来说，与服务器相关的，只要商家没有明确标注是独服，就可以认为是VPS了。</p>
+<h2 id="1-2-小白选购VPS提供商的原则"><a href="#1-2-小白选购VPS提供商的原则" class="headerlink" title="1.2 小白选购VPS提供商的原则"></a>1.2 小白选购VPS提供商的原则</h2><ul>
+<li>名气大、口碑好。 </li>
+<li>价格适中。 </li>
+<li>可自主更换IP或机房。 </li>
+<li>支持支付宝付款</li>
+</ul>
+<blockquote>
+<p>注：这是小白选购原则。老手自然有更多手段，不必拘泥于这些。但小白最好还是遵守一下，能够帮你快速选定合适的供应商。</p>
+</blockquote>
+<h2 id="1-3-推荐的供应商"><a href="#1-3-推荐的供应商" class="headerlink" title="1.3 推荐的供应商"></a>1.3 推荐的供应商</h2><h3 id="1-3-1-搬瓦工"><a href="#1-3-1-搬瓦工" class="headerlink" title="1.3.1 搬瓦工"></a>1.3.1 搬瓦工</h3><p>搬瓦工其实并非官方名称，而是中国用户根据发音自译的，从中也可以看到它在国内的流行程度。<br>搬瓦工符合我们以上所提的各项条件，其优势在于稳定、线路好，可以买到性价比较高的洛杉矶CN2 GIA 线路，国内连接速度快。另外也提供香港机房VPS，国内连接速度更快。<br>搬瓦工的各VPS套餐，在使用优惠码后更加便宜，性价比极高，支持支付宝（Alipay）付款。</p>
+<p>附上优惠码：<br>6.25%优惠码： BWH26FXH3HIQ<br>5.97%优惠码： BWH25AQH2CMQ</p>
+<p><a href="https://bwh88.net/" target="_blank" rel="noopener">Official Site</a></p>
+<blockquote>
+<p>注：优惠码来自网络，本人并未亲身使用过这些优惠码，如果发现优惠码无法使用，请发email联系我或者提交issue。</p>
+</blockquote>
+<h3 id="1-3-2-Vultr"><a href="#1-3-2-Vultr" class="headerlink" title="1.3.2 Vultr"></a>1.3.2 Vultr</h3><p>Vultr也满足以上各项条件，有美国洛杉矶、日本、新加坡等机房供选择，支持支付宝（Alipay）付款， 月付最低仅2.5美元（仅IPv6）。并且可以按小时付费，非常灵活.<br>Vultr目前没有发行优惠码。</p>
+<p><a href="https://www.vultr.com/" target="_blank" rel="noopener">Official Site</a></p>
+<h3 id="1-3-3-Linode"><a href="#1-3-3-Linode" class="headerlink" title="1.3.3 Linode"></a>1.3.3 Linode</h3><p>Linode除了不支持支付宝外，满足以上各项条件，日本机房速度还不错，月付5美元起。但是鉴于Linode注册时必须用到双币信用卡，相对比较麻烦，所以不推荐新手用户使用。满足注册条件的朋友，可以尝试。</p>
+<p><a href="https://www.linode.com/" target="_blank" rel="noopener">Official Site</a></p>
+<h3 id="1-3-4-DigitalOcean"><a href="#1-3-4-DigitalOcean" class="headerlink" title="1.3.4 DigitalOcean"></a>1.3.4 DigitalOcean</h3><p>DigitalOcean，简称DO。除了不支持支付宝付款外，Digitalocean也满足其余各项条件，月付也是5美元起.<br> 不过以原博主的实际体验来说，DO的各机房线路比较一般，国内连接速度表现也一般，不推荐新用户购买。</p>
+<p><a href="https://www.digitalocean.com/" target="_blank" rel="noopener">Official Site</a></p>
+<h3 id="1-3-5-总结一下"><a href="#1-3-5-总结一下" class="headerlink" title="1.3.5 总结一下"></a>1.3.5 总结一下</h3><p>通过以上分析，我们可以知道，<strong>搬瓦工</strong>、<strong>Vultr</strong>更符合我们的各项要求，性价比高，使用灵活，可以做为购买国外VPS服务器的首选。 而<strong>Linode注册难度较大</strong>，<strong>DigitalOcean线路比较一般</strong>，不推荐做为小白搭建SSR的VPS服务器使用。</p>
+<blockquote>
+<p>注：这是SSR中文网上推荐的VPS提供商，小白在上面选基本就够了。如果你还想了解更多靠谱的提供商，可以看Github上 @Bruskyii Panda 的<a href="https://github.com/ssrpanel/SSRPanel/wiki/VPS%E6%8E%A8%E8%8D%90&amp;%E8%B4%AD%E4%B9%B0%E7%BB%8F%E9%AA%8C" target="_blank" rel="noopener">这篇文章</a></p>
+</blockquote>
+<h2 id="1-4-购买流程"><a href="#1-4-购买流程" class="headerlink" title="1.4 购买流程"></a>1.4 购买流程</h2><blockquote>
+<p>注：作者本人使用的是Vultr，也极力推荐小白使用它，因此这里写的是Vultr的购买流程。如果你实在不想用Vultr，可以Google其他的提供商购买流程，基本上大同小异。</p>
+</blockquote>
+<h3 id="1-4-1-购前须知"><a href="#1-4-1-购前须知" class="headerlink" title="1.4.1 购前须知"></a>1.4.1 购前须知</h3><ul>
+<li>充值多少比较合适？<br>一次充值不建议太多，但是太少也很麻烦，容易造成使用中忘记续费、机器被删。<br>综合以上考虑，建议一次可充值预留3个月以上的使用时长，15美元及以上是一个比较合理的选择。</li>
+<li>在Vultr会买到被墙IP吗？<br>由于Vultr在国内用户中比较流行，部分IP可能在其他用户使用过程中被墙，日本及新加坡机房有一定的机率会分到被墙IP。如果你在购买时分到这样的 IP，可以自主操作在后台免费换IP，本文靠后位置有换IP教程。</li>
+<li>VPS购买简易流程为： 创建账号——充值——选定机房位置——开通VPS服务器——按小时扣取帐户余额。</li>
+</ul>
+<h3 id="1-4-2-注册"><a href="#1-4-2-注册" class="headerlink" title="1.4.2 注册"></a>1.4.2 注册</h3><p>点进<a href="https://www.vultr.com/?ref=7965963" target="_blank" rel="noopener">这里</a>，在下图红框处输入邮箱与密码，点Create Account，就完成了注册。</p>
+<p><img src="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%201.png" alt></p>
+<h3 id="1-4-3-充值"><a href="#1-4-3-充值" class="headerlink" title="1.4.3 充值"></a>1.4.3 充值</h3><ol>
+<li><p>在Vultr官网点击右上角的Log in，填入邮箱和密码登录。 </p>
+</li>
+<li><p>点击下图左侧的Billing，然后在右侧选择支付方式，红框内的Alipay代表支付宝，Wechat Pay代表微信支付，有Paypal账号的也可以用Paypal。 选好支付方式后，选择充值金额，最后点击下方按钮付款。支付宝会自动将美元转换为人民币支付，其它操作与我们日常使用支付宝一样，没有难度。 </p>
+</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%202.png" alt></p>
+<ol start="3">
+<li>充值成功后，刷新Vultr的Billing页面，右上角会有余额显示。</li>
+</ol>
+<h3 id="1-4-4-选择机房"><a href="#1-4-4-选择机房" class="headerlink" title="1.4.4 选择机房"></a>1.4.4 选择机房</h3><p>由于Vultr机房位置较多，刚接触的用户可能会无从下手，不知如何选择。下面我们提供Vultr的东京机房测试IP、包含IPV4和IPV6。<strong>点进去后，可以切换其他机房进行测试</strong><br><a href="http://hnd-jp-ping.vultr.com/" target="_blank" rel="noopener">东京机房测试</a><br>也有一个机房选择简易方法：大家可以在自己电脑上Ping下相关IP，选择延迟较小的那个。这个过程不需要太纠结，因为后期不满意可随时免费更换。 Ping值测试方法：以Windows系统为例：开始菜单——运行——输入cmd回车——在黑色窗口输入ping 具体IP，回车，查看延迟。</p>
+<h3 id="1-4-5-购买"><a href="#1-4-5-购买" class="headerlink" title="1.4.5 购买"></a>1.4.5 购买</h3><ol>
+<li>点击Vultr界面右侧的大 + 号，开始开通VPS服务器。 </li>
+<li>我们一般选择 Vultr Cloud Compte（VC2），即Vultr云计算。在下图界面中，选择机房所在位置。移动宽带可选择日本或新加坡，电信、联通可选择 洛杉矶/西雅图等，具体自测。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%203.png" alt></p>
+<ol start="3">
+<li>在系统选择界面，如果没有特殊需求，选择32位系统即可，占用资源较小。32位下的三个系统中，建议选择CentOS或Debian，网上有各种一键安装类 脚本适用。<br>第3项的Server Size，是选择VPS服务器配置的，只安装ShadowsocksR的话，最低配置就要以了。（2.5美元套餐目前仅提供IPV6地址，国内使用不太方 便，建议选择5美元套餐，包含IPV4地址）</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%204.png" alt></p>
+<ol start="4">
+<li>下图第4至6项，一般无需设置，默认即可。 </li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%205.png" alt></p>
+<ol start="6">
+<li>下图第7项，不填也可以。最后点击下图红框内按钮开始创建。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%206.png" alt></p>
+<ol start="8">
+<li>稍等几分钟，下图显示状态为Running后，就创建成功了，点击最右侧的Manage，可以进入VPS后台管理界面。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%207.png" alt></p>
+<h3 id="1-4-6-Vultr后台管理面板"><a href="#1-4-6-Vultr后台管理面板" class="headerlink" title="1.4.6 Vultr后台管理面板"></a>1.4.6 Vultr后台管理面板</h3><p>基本常用功能都已在下图红字标出。</p>
+<p><img src="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%208.png" alt></p>
+<h3 id="1-4-7-Vultr换机房、换IP"><a href="#1-4-7-Vultr换机房、换IP" class="headerlink" title="1.4.7 Vultr换机房、换IP"></a>1.4.7 Vultr换机房、换IP</h3><ol>
+<li>Vultr换机房： 如果VPS服务器在开通后，想换机房。那么只需要将当前VPS销毁，再重建一个即可，重建时选择另外的机房。<strong>这个过程中会分配一个新的IP</strong>。</li>
+<li>Vultr换IP： 如果VPS服务器在开通后，分配的IP长时间无法连接，那么可能是该IP地址被墙了，我们需要换一个IP。<br>方法：<br>先重建一个服务器，重建时选择相同的机房，重建成功后，就会得到一个新的IP地址。然后销毁被墙的服器即可。 </li>
+<li>换IP或换机房时保留原系统数据：<br>销毁VPS时，我们所有的数据也会同时消失。如果VPS服务器使用了一段时间，那么在换机房或换IP时，如何保留原有数据呢？<br>方法： 在销毁VPS前，先进入后台菜单中的Snapshots功能，免费创建当前系统快照。重建VPS选择系统时，选择Snapshot项，选中刚才创建的快照。新的VPS创建成功后，所有数据与你销毁前的系统保持一致。<strong>root密码也保持一致，而不是后台显示的root密码</strong>。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/DN-C/PimageHost/master/img/20190411%20pic%209.png" alt></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/shadowsocksR/" rel="tag"># shadowsocksR</a>
+          
+            <a href="/tags/VPS/" rel="tag"># VPS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="dustynight">
+            
+              <p class="site-author-name" itemprop="name">dustynight</p>
+              <div class="site-description motion-element" itemprop="description">About code, game, life, and everythings.</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/DN-C" title="GitHub &rarr; https://github.com/DN-C" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:clarencegan7@gmail.com" title="E-Mail &rarr; mailto:clarencegan7@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/_dustynight" title="Twitter &rarr; https://twitter.com/_dustynight" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.instagram.com/dustynight_/" title="Instagram &rarr; https://www.instagram.com/dustynight_/" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-VPS选择与购买"><span class="nav-number">2.</span> <span class="nav-text">1.  VPS选择与购买</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-什么是VPS"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 什么是VPS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-小白选购VPS提供商的原则"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 小白选购VPS提供商的原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-推荐的供应商"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 推荐的供应商</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-1-搬瓦工"><span class="nav-number">2.3.1.</span> <span class="nav-text">1.3.1 搬瓦工</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-2-Vultr"><span class="nav-number">2.3.2.</span> <span class="nav-text">1.3.2 Vultr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-3-Linode"><span class="nav-number">2.3.3.</span> <span class="nav-text">1.3.3 Linode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-4-DigitalOcean"><span class="nav-number">2.3.4.</span> <span class="nav-text">1.3.4 DigitalOcean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-5-总结一下"><span class="nav-number">2.3.5.</span> <span class="nav-text">1.3.5 总结一下</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-购买流程"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 购买流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-1-购前须知"><span class="nav-number">2.4.1.</span> <span class="nav-text">1.4.1 购前须知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-2-注册"><span class="nav-number">2.4.2.</span> <span class="nav-text">1.4.2 注册</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-3-充值"><span class="nav-number">2.4.3.</span> <span class="nav-text">1.4.3 充值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-4-选择机房"><span class="nav-number">2.4.4.</span> <span class="nav-text">1.4.4 选择机房</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-5-购买"><span class="nav-number">2.4.5.</span> <span class="nav-text">1.4.5 购买</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-6-Vultr后台管理面板"><span class="nav-number">2.4.6.</span> <span class="nav-text">1.4.6 Vultr后台管理面板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-7-Vultr换机房、换IP"><span class="nav-number">2.4.7.</span> <span class="nav-text">1.4.7 Vultr换机房、换IP</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">dustynight</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+  <script id="dsq-count-scr" src="https://dustynight.disqus.com/count.js" async></script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://yoursite.com/2019/04/11/SSRpart1/";
+    this.page.identifier = "2019/04/11/SSRpart1/";
+    this.page.title = '面向小白的SSR搭建教程(一） 前言&VPS选择与购买';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dustynight.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    loadComments();
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
